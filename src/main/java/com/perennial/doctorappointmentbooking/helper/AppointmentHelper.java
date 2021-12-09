@@ -49,7 +49,7 @@ public class AppointmentHelper {
                     Row currentRow= rows.next();
                     if(rowNumber==0)
                     {
-                        System.out.println("52");
+
                         rowNumber++;
                         continue;
                     }
@@ -59,45 +59,45 @@ public class AppointmentHelper {
 
                     while (cellsInRow.hasNext())
                     {
-                        System.out.println("61");
+
                         Cell currentCell=cellsInRow.next();
                         switch (cid)
                         {
 
                             case 0:
-//                                appointment.setPatient_id(currentCell.getStringCellValue());
+//
                                 break;
                             case 1:
                                 appointment.setAppointment_date(currentCell.getStringCellValue());
-                                System.out.println("1");
+
                                 break;
                             case 2:
                                 appointment.setAppointment_time(currentCell.getStringCellValue());
-                                System.out.println("2");
+
                                 break;
                             case 3:
                                 appointment.setPayment_id((int) currentCell.getNumericCellValue());
-                                System.out.println("3");
+
                                 break;
                             case 4:
                                 appointment.setAppointment_status(currentCell.getStringCellValue());
-                                System.out.println("4");
+
                                 break;
                             case 5:
                                 appointment.setDoctor_id((int) currentCell.getNumericCellValue());
-                                System.out.println("5");
+
                                 break;
                             case  6:
                                 appointment.setPatient_id((int) currentCell.getNumericCellValue());
-                                System.out.println("6");
+
                                 break;
                             case 7:
                                 appointment.setHospital_id((int) currentCell.getNumericCellValue());
-                                System.out.println("7");
+
                                 break;
 
                             default:
-                                System.out.println("end");
+
                                 break;
                         }
                         cid++;

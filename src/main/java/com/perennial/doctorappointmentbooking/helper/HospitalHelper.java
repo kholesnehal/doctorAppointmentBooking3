@@ -81,8 +81,6 @@ public class HospitalHelper {
                 }
                 list.add(hospital);
 
-                list.forEach(s-> System.out.println(s.toString()));
-
             }
             workbook.close();
             return list;

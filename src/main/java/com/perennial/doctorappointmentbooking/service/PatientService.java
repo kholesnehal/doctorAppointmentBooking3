@@ -20,8 +20,6 @@ public class PatientService {
     public void save(MultipartFile file) {
         try {
             List<Patient> patients= PatientHelper.convertExcelToListOfPatient(file.getInputStream());
-            patients.forEach(s-> System.out.println(s.toString()));
-
             try {
                 patients.forEach(l -> patientRepo.save(l));
             }

@@ -21,12 +21,12 @@ public class DoctorService {
     public void save(MultipartFile file) {
         try {
             List<Doctor> doctors= DoctorHelper.convertExcelToListOfDoctor(file.getInputStream());
-//            appointmentRepo.saveAll(appointments);
+
             doctors.forEach(s-> System.out.println(s.toString()));
 
             try {
                 doctors.forEach(l -> doctorRepo.save(l));
-//                appointments.forEach(s-> System.out.println(s.toString()));
+
             }
             catch (Exception e)
             {

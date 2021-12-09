@@ -95,8 +95,6 @@ public class PatientHelper {
                 }
                 list.add(p);
 
-                list.forEach(s-> System.out.println(s.toString()));
-
             }
             workbook.close();
             return list;

@@ -22,12 +22,12 @@ public class AppointmentService {
     public void save(MultipartFile file) {
         try {
             List<Appointment> appointments= AppointmentHelper.convertExcelToListOfAppointment(file.getInputStream());
-//            appointmentRepo.saveAll(appointments);
+
             appointments.forEach(s-> System.out.println(s.toString()));
 
             try {
                 appointments.forEach(l -> appointmentRepo.save(l));
-//                appointments.forEach(s-> System.out.println(s.toString()));
+
             }
             catch (Exception e)
             {

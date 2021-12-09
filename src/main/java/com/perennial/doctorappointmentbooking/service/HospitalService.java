@@ -21,7 +21,6 @@ public class HospitalService {
     public void save(MultipartFile file) {
         try {
             List<Hospital> hospitals= HospitalHelper.convertExcelToListOfHospital(file.getInputStream());
-            hospitals.forEach(s-> System.out.println(s.toString()));
 
             try {
                hospitals.forEach(l -> hospitalRepo.save(l));

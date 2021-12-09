@@ -62,7 +62,7 @@ public class DoctorHelper {
                     {
 
                         case 0:
-//                                appointment.setPatient_id(currentCell.getStringCellValue());
+//
                             break;
                         case 1:
                           doctor.setLicence_number(currentCell.getStringCellValue());
@@ -108,9 +108,6 @@ public class DoctorHelper {
                     cid++;
                 }
                 list.add(doctor);
-                System.out.println(list);
-
-                list.forEach(s-> System.out.println(s.toString()));
 
             }
             workbook.close();

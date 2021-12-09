@@ -22,8 +22,6 @@ public class PaymentService {
     public void save(MultipartFile file) {
         try {
             List<Payment> payments= PaymentHelper.convertExcelToListOfPPayment(file.getInputStream());
-           payments.forEach(s-> System.out.println(s.toString()));
-
             try {
                payments.forEach(l -> paymentRepo.save(l));
             }
