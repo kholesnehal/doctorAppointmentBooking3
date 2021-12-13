@@ -61,7 +61,7 @@ public class AppointmentHelper {
                         {
 
                             case 0:
-//
+
                                 break;
                             case 1:
                                 appointment.setAppointmentDate(currentCell.getStringCellValue());
@@ -71,26 +71,10 @@ public class AppointmentHelper {
                                 appointment.setAppointmentTime(currentCell.getStringCellValue());
 
                                 break;
-//                            case 3:
-//                                appointment.setPaymentId((int) currentCell.getNumericCellValue());
-//
-//                                break;
-                            case 4:
+                            case 3:
                                 appointment.setAppointmentStatus(currentCell.getStringCellValue());
 
                                 break;
-//                            case 5:
-//                                appointment.setDoctorId((int) currentCell.getNumericCellValue());
-//
-//                                break;
-//                            case  6:
-//                                appointment.setPatientId((int) currentCell.getNumericCellValue());
-//
-//                                break;
-//                            case 7:
-//                                appointment.setHospitalId((int) currentCell.getNumericCellValue());
-//
-//                                break;
 
                             default:
 

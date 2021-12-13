@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,12 +27,17 @@ public class Patient {
     private int age;
     private String reason;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctor_id")
-    private Doctor doctor;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "patient_id",referencedColumnName = "patientId")
+    List<Appointment> appointmentList=new ArrayList<>();
 
-    @OneToMany(mappedBy = "patient_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Appointment> appointments;
+
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "doctor_id")
+//    private Doctor doctor;
+//
+//    @OneToMany(mappedBy = "patient_id", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Appointment> appointments;
 
 //    @OneToMany(mappedBy = "hospital_id", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Hospital> hospitals;

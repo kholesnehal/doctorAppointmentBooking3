@@ -36,10 +36,6 @@ public class DoctorService {
             throw new RuntimeException("fail to store excel data: " + e.getMessage());
         }
     }
-    public List<Doctor> getAllDoctor()
-    {
-        return doctorRepo.findAll();
-    }
     public Doctor adddoctor(Doctor doctor)
     {
         return doctorRepo.save(doctor);

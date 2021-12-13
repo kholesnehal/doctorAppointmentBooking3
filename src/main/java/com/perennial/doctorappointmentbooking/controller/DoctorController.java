@@ -1,8 +1,13 @@
 package com.perennial.doctorappointmentbooking.controller;
+import com.perennial.doctorappointmentbooking.dto.Request;
 import com.perennial.doctorappointmentbooking.entity.Appointment;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
+import com.perennial.doctorappointmentbooking.entity.Hospital;
+import com.perennial.doctorappointmentbooking.entity.Patient;
 import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
 import com.perennial.doctorappointmentbooking.helper.DoctorHelper;
+import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
+import com.perennial.doctorappointmentbooking.repo.PatientRepo;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
 import com.perennial.doctorappointmentbooking.service.AppointmentService;
 import com.perennial.doctorappointmentbooking.service.DoctorService;
@@ -17,6 +22,10 @@ import java.util.List;
 public class DoctorController {
     @Autowired
     DoctorService doctorService;
+    @Autowired
+    DoctorRepo doctorRepo;
+    @Autowired
+    PatientRepo patientRepo;
     @PostMapping("/uploaddoctor")
     @ResponseBody
     public ResponseEntity<ResponseMessage> uploadExcelFile(@RequestParam("file") MultipartFile file)
@@ -37,15 +46,17 @@ public class DoctorController {
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
+
     @PostMapping("/adddoctor")
-    @ResponseBody
-    public Doctor addDoctor(@RequestBody Doctor doctor)
+    private Doctor placeDoctor(@RequestBody Request request)
     {
-        return doctorService.adddoctor(doctor);
+        return doctorRepo.save(request.getDoctor());
     }
 
-    @GetMapping("/doctor")
+
+    @GetMapping("/allDoctor")
     public List<Doctor> getAllDoctor() {
-        return this.doctorService.getAllDoctor();
+        return doctorRepo.findAll();
     }
+
 }

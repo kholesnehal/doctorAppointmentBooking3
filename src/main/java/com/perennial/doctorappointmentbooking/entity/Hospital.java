@@ -14,8 +14,5 @@ public class Hospital {
     private String hospitalAddress;
     private long phone;
 
-//    @ManyToOne
-//    @JoinColumn(name = "hospital_id")
-//    private Patient hospital_id;
 
 }

@@ -40,8 +40,7 @@ public class PatientController {
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
-    @Autowired
-    private DoctorRepo doctorRepo;
+
     @Autowired
     private PatientRepo patientRepo;
     @PostMapping("/addPatient")

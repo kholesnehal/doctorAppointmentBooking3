@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 public interface AppointmentRepo extends JpaRepository<Appointment,Integer> {
 
     Appointment findByAppointmentId(int appointment_id);
+
 }

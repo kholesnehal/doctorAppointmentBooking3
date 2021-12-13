@@ -56,7 +56,7 @@ public class PaymentHelper {
                     {
 
                         case 0:
-//
+
                             break;
                         case 1:
                             payment.setPaymentMode(currentCell.getStringCellValue());
@@ -70,9 +70,6 @@ public class PaymentHelper {
                         case 4:
                             payment.setPaymentTime(currentCell.getStringCellValue());
                            break;
-//                        case 5:
-//                            payment.setAppointmentId((int) currentCell.getNumericCellValue());
-//                              break;
                         default:
 
                             break;

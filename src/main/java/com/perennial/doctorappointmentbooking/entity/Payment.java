@@ -15,14 +15,10 @@ public class Payment {
     private double ammount;
     private String paymentDate;
     private String paymentTime;
-//    private Integer appointmentId;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "appointment_id")
     private Appointment appointment;
 
-
-//    @OneToOne
-//    private Appointment appointment;
 
 }

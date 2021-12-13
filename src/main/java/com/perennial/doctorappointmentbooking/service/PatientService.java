@@ -1,5 +1,4 @@
 package com.perennial.doctorappointmentbooking.service;
-
 import com.perennial.doctorappointmentbooking.entity.Hospital;
 import com.perennial.doctorappointmentbooking.entity.Patient;
 import com.perennial.doctorappointmentbooking.entity.Payment;

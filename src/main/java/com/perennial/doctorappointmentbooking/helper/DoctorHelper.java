@@ -17,10 +17,8 @@ import java.util.List;
 public class DoctorHelper {
     public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
-
     public static boolean checkExcelFormatOfDoctor(MultipartFile file)
     {
-
         if (!TYPE.equals(file.getContentType())) {
             return false;
         }
@@ -90,15 +88,10 @@ public class DoctorHelper {
                         case 9:
                             doctor.setEducation(currentCell.getStringCellValue());
                             break;
-//                        case 10:
-//                            doctor.setAppointmentId((int) currentCell.getNumericCellValue());
-//                            break;
-                        case 11:
+
+                        case 10:
                             doctor.setStatus(currentCell.getStringCellValue());
                             break;
-//                        case 12:
-//                            doctor.setHospitalId((int) currentCell.getNumericCellValue());
-
                         default:
 
                             break;

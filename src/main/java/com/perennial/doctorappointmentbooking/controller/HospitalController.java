@@ -22,6 +22,8 @@ import java.util.List;
 public class HospitalController {
     @Autowired
     HospitalService hospitalService;
+    @Autowired
+    DoctorRepo doctorRepo;
     @PostMapping("/uploadhospital")
     @ResponseBody
     public ResponseEntity<ResponseMessage> uploadExcelFile(@RequestParam("file") MultipartFile file)
@@ -42,22 +44,14 @@ public class HospitalController {
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
-    @PostMapping("/addhospital")
-    @ResponseBody
-    public Hospital addHospital(@RequestBody Hospital hospital)
-    {
-        return hospitalService.addhospital(hospital);
-    }
 
-    @Autowired
-    private DoctorRepo doctorRepo;
+    @PostMapping("/addhospital")
+    private Doctor placeDoctor(@RequestBody Request request)
+    {
+        return doctorRepo.save(request.getDoctor());
+    }
     @Autowired
     private HospitalRepo hospitalRepo;
-//    @PostMapping("/addHospital")
-//    public Hospital addHospital(@RequestBody Request request)
-//    {
-//        return doctorRepo.save(request.getDoctor());
-//    }
     @GetMapping("/findAllHospitals")
     public List<Hospital> findAllHospitals()
     {

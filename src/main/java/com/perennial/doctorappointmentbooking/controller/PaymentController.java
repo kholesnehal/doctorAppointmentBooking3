@@ -48,12 +48,12 @@ public class PaymentController {
     public List<Payment> getAllPayment() {
         return this.paymentService.getAllPayment();
     }
-    @RequestMapping("/updatepayment")
+    @PutMapping("/updatepayment")
     public Payment updatePayment(Payment payment)
     {
         return this.paymentService.updatePayment(payment);
     }
-    @RequestMapping("/deletepayment")
+    @DeleteMapping("/deletepayment")
     public ResponseEntity<?> deletePayment(@PathVariable int payment_id)
     {
         try {

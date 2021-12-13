@@ -15,10 +15,8 @@ import java.util.List;
 public class HospitalHelper {
     public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
-
     public static boolean checkExcelFormatOfHospital(MultipartFile file)
     {
-
         if (!TYPE.equals(file.getContentType())) {
             return false;
         }
@@ -58,7 +56,7 @@ public class HospitalHelper {
                     {
 
                         case 0:
-//
+
                             break;
                         case 1:
                             hospital.setHospitalName(currentCell.getStringCellValue());

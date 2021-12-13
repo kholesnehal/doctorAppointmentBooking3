@@ -38,11 +38,17 @@ public class AppointmentService {
     {
         return appointmentRepo.findAll();
     }
+
+    public Appointment findByAppointmentId( int appointmentId)
+    {
+        return appointmentRepo.findByAppointmentId(appointmentId);
+    }
+
     public Appointment addAppointment(Appointment appointment)
     {
         return appointmentRepo.save(appointment);
     }
-    public Appointment updateAppointment(Appointment appointment) {
+    public Appointment updateAppointment(Appointment appointment,int appointment_id) {
         Appointment update =appointmentRepo.findByAppointmentId(appointment.getAppointmentId());
        update.setAppointmentDate(appointment.getAppointmentDate());
         update.setAppointmentTime(appointment.getAppointmentTime());

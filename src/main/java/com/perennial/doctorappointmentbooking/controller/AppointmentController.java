@@ -2,9 +2,11 @@ package com.perennial.doctorappointmentbooking.controller;
 import com.perennial.doctorappointmentbooking.dto.Request;
 import com.perennial.doctorappointmentbooking.entity.Appointment;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
+import com.perennial.doctorappointmentbooking.entity.Patient;
 import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
 import com.perennial.doctorappointmentbooking.repo.AppointmentRepo;
 import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
+import com.perennial.doctorappointmentbooking.repo.PatientRepo;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
 import com.perennial.doctorappointmentbooking.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,52 +39,47 @@ public class AppointmentController {
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
+
+@Autowired
+DoctorRepo doctorRepo;
+    @Autowired
+    PatientRepo patientRepo;
+    @Autowired
+    private AppointmentRepo appointmentRepo;
+
     @PostMapping("/addappointment")
-    @ResponseBody
-    public Appointment addAppointment(@RequestBody Appointment appointment)
+    private Doctor placeDoctor(@RequestBody Request request)
     {
-        return appointmentService.addAppointment(appointment);
+        return doctorRepo.save(request.getDoctor());
     }
-//
-    @GetMapping("/appointment")
-    public List<Appointment> getAllAppointment() {
-        return this.appointmentService.getAllAppointment();
-    }
-
-
-//    @Autowired
-//    private DoctorRepo doctorRepo;
-//    @Autowired
-//    private AppointmentRepo appointmentRepo;
-//    @PostMapping("/addAppointment")
-//    public Doctor addAppointment(@RequestBody Request request)
-//    {
-//        return doctorRepo.save(request.getDoctor());
-//    }
-//    @GetMapping("/findAllAppointment")
-//    public List<Doctor> findAllAppointment()
-//    {
-//        return doctorRepo.findAll();
-//    }
-//
-
-
-    @RequestMapping("/updateappointment")
-    public Appointment updateAppointment(Appointment appointment)
+    @PostMapping("/addPatient")
+    private Patient placePatient(@RequestBody Request request)
     {
-        return this.appointmentService.updateAppointment(appointment);
+        return patientRepo.save(request.getPatient());
     }
-    @RequestMapping("/deleteappointment")
-    public ResponseEntity<?> deleteAppointment(@PathVariable int appointmentId)
+
+    @GetMapping("/findAllAppointment")
+    public List<Appointment> findAllAppointment()
     {
-        try {
-            this.appointmentService.deleteAppointment(appointmentId);
-            return ResponseEntity.ok().build();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        return appointmentRepo.findAll();
     }
+
+@GetMapping("/getAppointmentById/{id}")
+public  Appointment getAppointmentById(int appointment_id)
+{
+    return appointmentRepo.findByAppointmentId(appointment_id);
+}
+
+
+    @PutMapping("/updateappointment/{id}")
+ public Appointment updateAppointment(@RequestBody Appointment appointment,@PathVariable int appointmnet_id)
+    {
+        return this.appointmentService.updateAppointment(appointment,appointmnet_id);
+    }
+    @DeleteMapping("/deleteappointment/{id}")
+    public String deleteAppointment(@PathVariable int appointmentId)
+    {
+       return this.appointmentService.deleteAppointment(appointmentId);
+    }
+
 }
