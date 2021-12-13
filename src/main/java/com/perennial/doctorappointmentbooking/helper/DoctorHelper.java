@@ -1,5 +1,4 @@
 package com.perennial.doctorappointmentbooking.helper;
-
 import com.perennial.doctorappointmentbooking.entity.Appointment;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
 import org.apache.poi.ss.usermodel.Cell;
@@ -9,7 +8,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -65,13 +63,13 @@ public class DoctorHelper {
 //
                             break;
                         case 1:
-                          doctor.setLicence_number(currentCell.getStringCellValue());
+                          doctor.setLicenceNumber(currentCell.getStringCellValue());
                             break;
                         case 2:
-                            doctor.setFirst_name(currentCell.getStringCellValue());
+                            doctor.setFirstName(currentCell.getStringCellValue());
                             break;
                         case 3:
-                            doctor.setLast_name(currentCell.getStringCellValue());
+                            doctor.setLastName(currentCell.getStringCellValue());
                             break;
                         case 4:
                            doctor.setEmail(currentCell.getStringCellValue());
@@ -92,14 +90,14 @@ public class DoctorHelper {
                         case 9:
                             doctor.setEducation(currentCell.getStringCellValue());
                             break;
-                        case 10:
-                            doctor.setAppointment_id((int) currentCell.getNumericCellValue());
-                            break;
+//                        case 10:
+//                            doctor.setAppointmentId((int) currentCell.getNumericCellValue());
+//                            break;
                         case 11:
                             doctor.setStatus(currentCell.getStringCellValue());
                             break;
-                        case 12:
-                            doctor.setHospital_id((int) currentCell.getNumericCellValue());
+//                        case 12:
+//                            doctor.setHospitalId((int) currentCell.getNumericCellValue());
 
                         default:
 

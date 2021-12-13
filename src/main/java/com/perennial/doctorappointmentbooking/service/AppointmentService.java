@@ -1,6 +1,4 @@
 package com.perennial.doctorappointmentbooking.service;
-
-
 import com.perennial.doctorappointmentbooking.entity.Appointment;
 import com.perennial.doctorappointmentbooking.entity.Payment;
 import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -46,17 +43,17 @@ public class AppointmentService {
         return appointmentRepo.save(appointment);
     }
     public Appointment updateAppointment(Appointment appointment) {
-        Appointment update =appointmentRepo.findByAppointmentId(appointment.getAppointment_id());
-        update.setAppointment_date(appointment.getAppointment_date());
-        update.setAppointment_time(appointment.getAppointment_time());
-        update.setAppointment_status(appointment.getAppointment_status());
+        Appointment update =appointmentRepo.findByAppointmentId(appointment.getAppointmentId());
+       update.setAppointmentDate(appointment.getAppointmentDate());
+        update.setAppointmentTime(appointment.getAppointmentTime());
+     update.setAppointmentStatus(appointment.getAppointmentStatus());
         return appointmentRepo.save(update);
     }
 
 
-    public String deleteAppointment(int appointment_id) {
-       Appointment appointment = appointmentRepo.findByAppointmentId(appointment_id);
-        if (!ObjectUtils.isEmpty(appointment_id)) {
+    public String deleteAppointment(int appointmentId) {
+       Appointment appointment = appointmentRepo.findByAppointmentId(appointmentId);
+        if (!ObjectUtils.isEmpty(appointmentId)) {
             appointmentRepo.delete(appointment);
             return " Record deleted = " + appointment;
         } else

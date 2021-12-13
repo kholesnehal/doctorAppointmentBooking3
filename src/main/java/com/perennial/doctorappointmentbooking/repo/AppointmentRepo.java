@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 @Repository
 public interface AppointmentRepo extends JpaRepository<Appointment,Integer> {
 
-    Appointment findByAppointmentId(Integer appointment_id);
+    Appointment findByAppointmentId(int appointment_id);
 }

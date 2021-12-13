@@ -1,5 +1,4 @@
 package com.perennial.doctorappointmentbooking.controller;
-
 import com.perennial.doctorappointmentbooking.entity.Patient;
 import com.perennial.doctorappointmentbooking.entity.Payment;
 import com.perennial.doctorappointmentbooking.helper.HospitalHelper;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 
 @RestController
@@ -46,7 +44,7 @@ public class PaymentController {
         return paymentService.addPayment(payment);
     }
 
-    @GetMapping("/payment")
+    @GetMapping("/allpayment")
     public List<Payment> getAllPayment() {
         return this.paymentService.getAllPayment();
     }

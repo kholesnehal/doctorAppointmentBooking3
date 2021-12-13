@@ -1,5 +1,4 @@
 package com.perennial.doctorappointmentbooking.service;
-
 import com.perennial.doctorappointmentbooking.entity.Doctor;
 import com.perennial.doctorappointmentbooking.entity.Hospital;
 import com.perennial.doctorappointmentbooking.helper.DoctorHelper;
@@ -29,14 +28,11 @@ public class HospitalService {
             {
                 e.printStackTrace();
             }
-        } catch ( IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("fail to store excel data: " + e.getMessage());
         }
     }
-    public List<Hospital> getAllHospital()
-    {
-        return hospitalRepo.findAll();
-    }
+
     public Hospital addhospital(Hospital hospital)
     {
         return hospitalRepo.save(hospital);

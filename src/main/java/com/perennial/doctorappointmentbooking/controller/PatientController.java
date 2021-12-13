@@ -1,11 +1,12 @@
 package com.perennial.doctorappointmentbooking.controller;
-
+import com.perennial.doctorappointmentbooking.dto.Request;
+import com.perennial.doctorappointmentbooking.entity.Doctor;
 import com.perennial.doctorappointmentbooking.entity.Hospital;
 import com.perennial.doctorappointmentbooking.entity.Patient;
-import com.perennial.doctorappointmentbooking.entity.Payment;
 import com.perennial.doctorappointmentbooking.helper.HospitalHelper;
+import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
+import com.perennial.doctorappointmentbooking.repo.PatientRepo;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
-import com.perennial.doctorappointmentbooking.service.HospitalService;
 import com.perennial.doctorappointmentbooking.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,15 +40,21 @@ public class PatientController {
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
-    @PostMapping("/addpatient")
+    @Autowired
+    private DoctorRepo doctorRepo;
+    @Autowired
+    private PatientRepo patientRepo;
+    @PostMapping("/addPatient")
     @ResponseBody
     public Patient addPatient(@RequestBody Patient patient)
     {
         return patientService.addPatient(patient);
     }
 
-    @GetMapping("/patient")
-    public List<Patient> getAllPatient() {
-        return this.patientService.getAllPatient();
+    @GetMapping("/findAllPatients")
+    public List<Patient> findAllPatients()
+    {
+        return patientRepo.findAll();
     }
+
 }

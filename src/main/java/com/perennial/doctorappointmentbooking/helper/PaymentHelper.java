@@ -1,6 +1,4 @@
 package com.perennial.doctorappointmentbooking.helper;
-
-import com.perennial.doctorappointmentbooking.entity.Patient;
 import com.perennial.doctorappointmentbooking.entity.Payment;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -8,16 +6,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 public class PaymentHelper {
     public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-
 
     public static boolean checkExcelFormatOfPayment(MultipartFile file)
     {
@@ -64,20 +59,20 @@ public class PaymentHelper {
 //
                             break;
                         case 1:
-                            payment.setPayment_mode(currentCell.getStringCellValue());
+                            payment.setPaymentMode(currentCell.getStringCellValue());
                             break;
                         case 2:
                             payment.setAmmount(currentCell.getNumericCellValue());
                             break;
                         case 3:
-                         payment.setPayment_date(currentCell.getStringCellValue());
+                         payment.setPaymentDate(currentCell.getStringCellValue());
                             break;
                         case 4:
-                            payment.setPayment_time(currentCell.getStringCellValue());
+                            payment.setPaymentTime(currentCell.getStringCellValue());
                            break;
-                        case 5:
-                            payment.setAppointment_id((int) currentCell.getNumericCellValue());
-                              break;
+//                        case 5:
+//                            payment.setAppointmentId((int) currentCell.getNumericCellValue());
+//                              break;
                         default:
 
                             break;
@@ -85,9 +80,6 @@ public class PaymentHelper {
                     cid++;
                 }
                 list.add(payment);
-
-                list.forEach(s-> System.out.println(s.toString()));
-
             }
             workbook.close();
             return list;

@@ -1,9 +1,13 @@
 package com.perennial.doctorappointmentbooking.controller;
 
+import com.perennial.doctorappointmentbooking.dto.Request;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
 import com.perennial.doctorappointmentbooking.entity.Hospital;
 import com.perennial.doctorappointmentbooking.helper.DoctorHelper;
 import com.perennial.doctorappointmentbooking.helper.HospitalHelper;
+import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
+import com.perennial.doctorappointmentbooking.repo.HospitalRepo;
+import com.perennial.doctorappointmentbooking.repo.PatientRepo;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
 import com.perennial.doctorappointmentbooking.service.DoctorService;
 import com.perennial.doctorappointmentbooking.service.HospitalService;
@@ -12,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 
 @RestController
@@ -46,8 +49,18 @@ public class HospitalController {
         return hospitalService.addhospital(hospital);
     }
 
-    @GetMapping("/hospital")
-    public List<Hospital> getAllHospital() {
-        return this.hospitalService.getAllHospital();
+    @Autowired
+    private DoctorRepo doctorRepo;
+    @Autowired
+    private HospitalRepo hospitalRepo;
+//    @PostMapping("/addHospital")
+//    public Hospital addHospital(@RequestBody Request request)
+//    {
+//        return doctorRepo.save(request.getDoctor());
+//    }
+    @GetMapping("/findAllHospitals")
+    public List<Hospital> findAllHospitals()
+    {
+        return hospitalRepo.findAll();
     }
 }

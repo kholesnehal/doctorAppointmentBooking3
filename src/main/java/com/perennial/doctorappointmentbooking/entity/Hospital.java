@@ -2,18 +2,20 @@ package com.perennial.doctorappointmentbooking.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 public class Hospital {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer hospital_id;
-    private String hospital_name;
-    private String hospital_address;
+    private Integer hospitalId;
+    private String hospitalName;
+    private String hospitalAddress;
     private long phone;
+
+//    @ManyToOne
+//    @JoinColumn(name = "hospital_id")
+//    private Patient hospital_id;
+
 }

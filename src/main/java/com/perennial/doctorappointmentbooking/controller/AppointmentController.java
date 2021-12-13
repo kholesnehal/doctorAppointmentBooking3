@@ -1,8 +1,10 @@
 package com.perennial.doctorappointmentbooking.controller;
-
+import com.perennial.doctorappointmentbooking.dto.Request;
 import com.perennial.doctorappointmentbooking.entity.Appointment;
-import com.perennial.doctorappointmentbooking.entity.Payment;
+import com.perennial.doctorappointmentbooking.entity.Doctor;
 import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
+import com.perennial.doctorappointmentbooking.repo.AppointmentRepo;
+import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
 import com.perennial.doctorappointmentbooking.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 @RestController
 public class AppointmentController {
@@ -42,11 +43,29 @@ public class AppointmentController {
     {
         return appointmentService.addAppointment(appointment);
     }
-
+//
     @GetMapping("/appointment")
     public List<Appointment> getAllAppointment() {
         return this.appointmentService.getAllAppointment();
     }
+
+
+//    @Autowired
+//    private DoctorRepo doctorRepo;
+//    @Autowired
+//    private AppointmentRepo appointmentRepo;
+//    @PostMapping("/addAppointment")
+//    public Doctor addAppointment(@RequestBody Request request)
+//    {
+//        return doctorRepo.save(request.getDoctor());
+//    }
+//    @GetMapping("/findAllAppointment")
+//    public List<Doctor> findAllAppointment()
+//    {
+//        return doctorRepo.findAll();
+//    }
+//
+
 
     @RequestMapping("/updateappointment")
     public Appointment updateAppointment(Appointment appointment)
@@ -54,10 +73,10 @@ public class AppointmentController {
         return this.appointmentService.updateAppointment(appointment);
     }
     @RequestMapping("/deleteappointment")
-    public ResponseEntity<?> deleteAppointment(@PathVariable int appointment_id)
+    public ResponseEntity<?> deleteAppointment(@PathVariable int appointmentId)
     {
         try {
-            this.appointmentService.deleteAppointment(appointment_id);
+            this.appointmentService.deleteAppointment(appointmentId);
             return ResponseEntity.ok().build();
         }
         catch (Exception e)

@@ -31,10 +31,7 @@ public class PatientService {
             throw new RuntimeException("fail to store excel data: " + e.getMessage());
         }
     }
-    public List<Patient> getAllPatient()
-    {
-        return patientRepo.findAll();
-    }
+
     public Patient addPatient(Patient patient)
     {
         return patientRepo.save(patient);

@@ -1,7 +1,4 @@
 package com.perennial.doctorappointmentbooking.helper;
-
-
-
 import com.perennial.doctorappointmentbooking.entity.Appointment;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -10,7 +7,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -68,33 +64,33 @@ public class AppointmentHelper {
 //
                                 break;
                             case 1:
-                                appointment.setAppointment_date(currentCell.getStringCellValue());
+                                appointment.setAppointmentDate(currentCell.getStringCellValue());
 
                                 break;
                             case 2:
-                                appointment.setAppointment_time(currentCell.getStringCellValue());
+                                appointment.setAppointmentTime(currentCell.getStringCellValue());
 
                                 break;
-                            case 3:
-                                appointment.setPayment_id((int) currentCell.getNumericCellValue());
-
-                                break;
+//                            case 3:
+//                                appointment.setPaymentId((int) currentCell.getNumericCellValue());
+//
+//                                break;
                             case 4:
-                                appointment.setAppointment_status(currentCell.getStringCellValue());
+                                appointment.setAppointmentStatus(currentCell.getStringCellValue());
 
                                 break;
-                            case 5:
-                                appointment.setDoctor_id((int) currentCell.getNumericCellValue());
-
-                                break;
-                            case  6:
-                                appointment.setPatient_id((int) currentCell.getNumericCellValue());
-
-                                break;
-                            case 7:
-                                appointment.setHospital_id((int) currentCell.getNumericCellValue());
-
-                                break;
+//                            case 5:
+//                                appointment.setDoctorId((int) currentCell.getNumericCellValue());
+//
+//                                break;
+//                            case  6:
+//                                appointment.setPatientId((int) currentCell.getNumericCellValue());
+//
+//                                break;
+//                            case 7:
+//                                appointment.setHospitalId((int) currentCell.getNumericCellValue());
+//
+//                                break;
 
                             default:
 

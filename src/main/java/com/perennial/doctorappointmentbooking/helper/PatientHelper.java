@@ -1,5 +1,4 @@
 package com.perennial.doctorappointmentbooking.helper;
-
 import com.perennial.doctorappointmentbooking.entity.Hospital;
 import com.perennial.doctorappointmentbooking.entity.Patient;
 import org.apache.poi.ss.usermodel.Cell;
@@ -8,7 +7,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -64,10 +62,10 @@ public class PatientHelper {
 //
                             break;
                         case 1:
-                            p.setFirst_name(currentCell.getStringCellValue());
+                            p.setFirstName(currentCell.getStringCellValue());
                             break;
                         case 2:
-                            p.setLast_name(currentCell.getStringCellValue());
+                            p.setLastName(currentCell.getStringCellValue());
                             break;
                         case 3:
                             p.setEmail(currentCell.getStringCellValue());
