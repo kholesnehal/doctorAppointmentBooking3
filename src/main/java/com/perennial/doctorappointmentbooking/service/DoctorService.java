@@ -6,12 +6,15 @@ import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
 import com.perennial.doctorappointmentbooking.helper.DoctorHelper;
 import com.perennial.doctorappointmentbooking.repo.AppointmentRepo;
 import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
+import org.hibernate.engine.spi.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DoctorService {
 
@@ -41,3 +44,5 @@ public class DoctorService {
         return doctorRepo.save(doctor);
     }
 }
+
+

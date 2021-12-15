@@ -64,7 +64,7 @@ public class AppointmentHelper {
 
                                 break;
                             case 1:
-                                appointment.setAppointmentDate(currentCell.getStringCellValue());
+                                appointment.setAppointmentDate(currentCell.getDateCellValue());
 
                                 break;
                             case 2:

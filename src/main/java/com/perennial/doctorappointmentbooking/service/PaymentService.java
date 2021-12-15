@@ -43,7 +43,7 @@ public class PaymentService {
     }
 
     public Payment updatePayment(Payment payment) {
-         Payment update = paymentRepo.findByPaymentId(payment.getPaymentId());
+         Payment update = paymentRepo.findByPaymentId((int) payment.getPaymentId());
         update.setPaymentDate(payment.getPaymentDate());
         update.setPaymentTime(payment.getPaymentTime());
         update.setPaymentMode(payment.getPaymentMode());

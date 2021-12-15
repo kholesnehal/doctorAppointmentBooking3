@@ -14,10 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
+@RequestMapping("payment")
 public class PaymentController {
     @Autowired
     PaymentService paymentService;
-    @PostMapping("/uploadpayment")
+    @PostMapping("/upload-payment")
     @ResponseBody
     public ResponseEntity<ResponseMessage> uploadExcelFileOfPayment(@RequestParam("file") MultipartFile file)
     {
@@ -37,23 +38,26 @@ public class PaymentController {
         message = "Please upload an excel file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
-    @PostMapping("/addpayment")
+
+
+
+    @PostMapping("/makepayment")
     @ResponseBody
     public Payment addPayment(@RequestBody Payment payment)
     {
         return paymentService.addPayment(payment);
     }
 
-    @GetMapping("/allpayment")
-    public List<Payment> getAllPayment() {
-        return this.paymentService.getAllPayment();
-    }
-    @PutMapping("/updatepayment")
+
+    @PutMapping("/update-payment")
     public Payment updatePayment(Payment payment)
     {
         return this.paymentService.updatePayment(payment);
     }
-    @DeleteMapping("/deletepayment")
+
+
+
+    @DeleteMapping("/delete-payment")
     public ResponseEntity<?> deletePayment(@PathVariable int payment_id)
     {
         try {

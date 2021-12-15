@@ -17,10 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
+@RequestMapping("/patient")
 public class PatientController {
     @Autowired
     PatientService patientService;
-    @PostMapping("/uploadpatient")
+    @Autowired
+    private PatientRepo patientRepo;
+    @PostMapping("/upload-patient")
     @ResponseBody
     public ResponseEntity<ResponseMessage> uploadExcelFileOfPatient(@RequestParam("file") MultipartFile file)
     {
@@ -41,19 +44,20 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
 
-    @Autowired
-    private PatientRepo patientRepo;
-    @PostMapping("/addPatient")
+
+    @PostMapping("/add-patient")
     @ResponseBody
     public Patient addPatient(@RequestBody Patient patient)
     {
         return patientService.addPatient(patient);
     }
 
-    @GetMapping("/findAllPatients")
-    public List<Patient> findAllPatients()
-    {
-        return patientRepo.findAll();
-    }
+
+
+//    @GetMapping("/findallpatients")
+//    public List<Patient> findAllPatients()
+//    {
+//        return patientRepo.findAll();
+//    }
 
 }

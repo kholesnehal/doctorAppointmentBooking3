@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,29 +17,39 @@ import java.util.List;
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer doctorId;
+   @NotNull
+    private long doctorId;
+    @NotEmpty
     private String licenceNumber;
+    @NotBlank
+    @Size(max=100)
     private String firstName;
+    @Size(max=100)
     private String lastName;
+    @Email(message = "Email should be valid")
     private String email;
+    @Size(max=100)
     private String address;
+    @Pattern(regexp ="(0|91)?[7-9][0-9]{9}")
     private long phone;
+    @NotEmpty
     private String speciality;
     private Integer experience;
+    @NotEmpty
     private String education;
     private String status;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctorId_fk",referencedColumnName = "doctorId")
-    List<Appointment> appointmentList=new ArrayList<>();
+    @OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL)
+    List<Appointment> appointmentList;
 
 @OneToMany(targetEntity = Patient.class,cascade = CascadeType.ALL)
-@JoinColumn(name = "doctor_Id",referencedColumnName = "doctorId")
-List<Patient> patients=new ArrayList<>();
+List<Patient> patients;
 
     @OneToMany(targetEntity = Hospital.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctor_id",referencedColumnName = "doctorId")
-    List<Hospital> hospitals=new ArrayList<>();
+    List<Hospital> hospitals;
+
+    public Doctor(List<Doctor> doctorList, String s) {
+    }
 
 }

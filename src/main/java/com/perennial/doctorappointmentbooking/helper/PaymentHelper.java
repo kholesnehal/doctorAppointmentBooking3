@@ -8,6 +8,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -65,7 +67,7 @@ public class PaymentHelper {
                             payment.setAmmount(currentCell.getNumericCellValue());
                             break;
                         case 3:
-                         payment.setPaymentDate(currentCell.getStringCellValue());
+                         payment.setPaymentDate(currentCell.getDateCellValue());
                             break;
                         case 4:
                             payment.setPaymentTime(currentCell.getStringCellValue());
