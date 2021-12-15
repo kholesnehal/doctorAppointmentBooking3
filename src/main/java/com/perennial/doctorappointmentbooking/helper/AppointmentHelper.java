@@ -9,7 +9,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -71,10 +70,10 @@ public class AppointmentHelper {
                                 appointment.setAppointmentTime(currentCell.getStringCellValue());
 
                                 break;
-                            case 3:
-                                appointment.setAppointmentStatus(currentCell.getStringCellValue());
-
-                                break;
+//                            case 3:
+//                                appointment.setAppointmentStatus(currentCell.getStringCellValue());
+//
+//                                break;
 
                             default:
 

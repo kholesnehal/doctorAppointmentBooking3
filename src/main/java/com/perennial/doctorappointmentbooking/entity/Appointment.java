@@ -1,9 +1,9 @@
 package com.perennial.doctorappointmentbooking.entity;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
@@ -16,8 +16,12 @@ public class Appointment {
     @Temporal(TemporalType.DATE)
     private Date appointmentDate=new Date(System.currentTimeMillis());
     private String appointmentTime;
+    @NotBlank
     private String appointmentStatus;
-
+    @NotBlank
+private long doctorId;
+    @NotBlank
+private long patientId;
     @OneToOne
     private Payment payment;
 

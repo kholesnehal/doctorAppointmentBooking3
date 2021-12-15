@@ -1,15 +1,10 @@
 package com.perennial.doctorappointmentbooking.service;
 
-import com.perennial.doctorappointmentbooking.entity.Appointment;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
-import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
 import com.perennial.doctorappointmentbooking.helper.DoctorHelper;
-import com.perennial.doctorappointmentbooking.repo.AppointmentRepo;
 import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
-import org.hibernate.engine.spi.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
@@ -43,6 +38,16 @@ public class DoctorService {
     {
         return doctorRepo.save(doctor);
     }
+
+    public List<Doctor> getAllDoctors(String status) {
+        List<Doctor>d= doctorRepo.findAll().stream()
+                .filter(doctor -> doctor.getStatus().equals(status))
+                .collect(Collectors.toList());
+        return d;
+
+    }
+
+
 }
 
 

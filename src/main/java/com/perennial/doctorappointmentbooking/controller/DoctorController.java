@@ -1,22 +1,22 @@
 package com.perennial.doctorappointmentbooking.controller;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.perennial.doctorappointmentbooking.dto.Request;
-import com.perennial.doctorappointmentbooking.entity.Appointment;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
-import com.perennial.doctorappointmentbooking.entity.Hospital;
 import com.perennial.doctorappointmentbooking.entity.Patient;
-import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
 import com.perennial.doctorappointmentbooking.helper.DoctorHelper;
 import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
 import com.perennial.doctorappointmentbooking.repo.PatientRepo;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
-import com.perennial.doctorappointmentbooking.service.AppointmentService;
 import com.perennial.doctorappointmentbooking.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/doctor")
@@ -59,6 +59,15 @@ public class DoctorController {
     public List<Doctor> getAllDoctor() {
         return doctorRepo.findAll();
     }
+    @GetMapping("/byid")
+    public Optional<Doctor> getDoctorById(@RequestParam("doctorId") long doctorId) {
+        Optional<Doctor> doctor=doctorRepo.findById(doctorId);
+        return doctor;
+    }
 
-
+@RequestMapping(path = "get-doctors",method = RequestMethod.GET)
+    public List<Doctor> getAvailableDoctors(@RequestParam String status) {
+       List<Doctor> availableDoctors = doctorService.getAllDoctors(status);
+        return availableDoctors;
+    }
 }

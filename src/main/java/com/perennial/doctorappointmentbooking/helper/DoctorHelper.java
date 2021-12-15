@@ -1,11 +1,9 @@
 package com.perennial.doctorappointmentbooking.helper;
-import com.perennial.doctorappointmentbooking.entity.Appointment;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;

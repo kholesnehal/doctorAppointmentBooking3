@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,10 +31,10 @@ public class Doctor {
     private String address;
     @Pattern(regexp ="(0|91)?[7-9][0-9]{9}")
     private long phone;
-    @NotEmpty
+    @NotBlank
     private String speciality;
     private Integer experience;
-    @NotEmpty
+    @NotBlank
     private String education;
     private String status;
 
