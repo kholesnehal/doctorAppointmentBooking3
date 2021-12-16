@@ -1,112 +1,109 @@
 package com.perennial.doctorappointmentbooking.service;
+
 import com.perennial.doctorappointmentbooking.entity.Appointment;
+import com.perennial.doctorappointmentbooking.entity.Patient;
 import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
-import com.perennial.doctorappointmentbooking.repo.AppointmentRepo;
+import com.perennial.doctorappointmentbooking.repo.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class AppointmentService implements AppointmentInterface{
+public class AppointmentService {
     @Autowired
-    AppointmentRepo appointmentRepo;
+    AppointmentRepository appointmentRepository;
 
     public void save(MultipartFile file) {
         try {
-            List<Appointment> appointments= AppointmentHelper.convertExcelToListOfAppointment(file.getInputStream());
+            List<Appointment> appointments = AppointmentHelper.convertExcelToListOfAppointment(file.getInputStream());
 
-            appointments.forEach(s-> System.out.println(s.toString()));
+            appointments.forEach(s -> System.out.println(s.toString()));
 
             try {
-                appointments.forEach(l -> appointmentRepo.save(l));
+                appointments.forEach(l -> appointmentRepository.save(l));
 
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } catch ( IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("fail to store excel data: " + e.getMessage());
         }
     }
 
     public List<Appointment> findAllAppointmentsforDoctor(long doctorId) {
 
-        List<Appointment>d=null;
+        List<Appointment> d = null;
         try {
 
-            d=appointmentRepo.findAll()
+            d = appointmentRepository.findAll()
                     .stream()
-                    .filter(a ->(a.getDoctorId() == doctorId))
+                    .filter(a -> (a.getDoctorId() == doctorId))
                     .collect(Collectors.toList());
             return d;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
         return d;
     }
+
     public List<Appointment> findAllAppointmentsforPatient(long patientId) {
 
-        List<Appointment>d=null;
+        List<Appointment> d = null;
         try {
 
-            d=appointmentRepo.findAll()
+            d = appointmentRepository.findAll()
                     .stream()
-                    .filter(a ->(a.getPatientId() == patientId))
+                    .filter(a -> (a.getPatientId() == patientId))
                     .collect(Collectors.toList());
             return d;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
         return d;
     }
 
-    public Appointment findByAppointmentId( int appointmentId)
-    {
-        return appointmentRepo.findByAppointmentId(appointmentId);
+    public Appointment findByAppointmentId(int appointmentId) {
+        return appointmentRepository.findByAppointmentId(appointmentId);
     }
 
-    public Appointment addAppointment(Appointment appointment)
-    {
-        return appointmentRepo.save(appointment);
+    public Appointment addAppointment(Appointment appointment) {
+        return appointmentRepository.save(appointment);
     }
+
     public Appointment updateAppointment(Appointment appointment) {
 
-           Appointment update = appointmentRepo.findByAppointmentId((int) appointment.getAppointmentId());
-       update.setAppointmentDate(appointment.getAppointmentDate());
-        update.setAppointmentTime(appointment.getAppointmentTime());
+        Appointment update = appointmentRepository.findByAppointmentId((int) appointment.getAppointmentId());
+        update.setAppointmentDate(appointment.getAppointmentDate());
+        update.setAppointmentStartTime(appointment.getAppointmentStartTime());
+        update.setAppointmentEndTime(appointment.getAppointmentEndTime());
         update.setAppointmentStatus(appointment.getAppointmentStatus());
         update.setDoctorId(appointment.getDoctorId());
         update.setPatientId(appointment.getPatientId());
-            return appointmentRepo.save(update);
-        }
-
-
-    private void orElseThrow(Object a) {
+        return appointmentRepository.save(update);
     }
 
+
     public void deleteAppointment(Long appointmentId) {
-    appointmentRepo.deleteById(appointmentId);
-}
+        appointmentRepository.deleteById(appointmentId);
+    }
+
     public Appointment updateStatus(Long appointmentId, Appointment appointment) {
 
-        Optional<Appointment> appointmentList = appointmentRepo.findById(appointmentId);
+        Optional<Appointment> appointmentList = appointmentRepository.findById(appointmentId);
 
-        if(appointmentList.isPresent()){
-            if(appointment.getAppointmentStatus() != null){
+        if (appointmentList.isPresent()) {
+            if (appointment.getAppointmentStatus() != null) {
                 appointmentList.get().setAppointmentStatus(appointment.getAppointmentStatus());
             }
-            return appointmentRepo.save(appointmentList.get());
+            return appointmentRepository.save(appointmentList.get());
         }
         return null;
     }
@@ -115,4 +112,20 @@ public class AppointmentService implements AppointmentInterface{
         return findByPatientId(patientId);
 
     }
-}
+    public boolean isAppointmentAlreadyExist(Appointment appointment) {
+        List<Appointment> appointmentList = appointmentRepository.findAll();
+        for (Appointment d : appointmentList) {
+            if (d.getAppointmentDate().equals(appointment.getAppointmentDate())
+                    && d.getAppointmentStatus().equals(appointment.getAppointmentStatus())
+                    && d.getAppointmentStartTime().equals(appointment.getAppointmentStartTime())&& d.getAppointmentEndTime().equals(appointment.getAppointmentEndTime()));
+                     return true;
+            }
+
+
+        return false;
+        }
+        }
+
+
+
+

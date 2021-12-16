@@ -1,31 +1,27 @@
 package com.perennial.doctorappointmentbooking.controller;
-import com.perennial.doctorappointmentbooking.entity.Patient;
+
 import com.perennial.doctorappointmentbooking.entity.Payment;
-import com.perennial.doctorappointmentbooking.helper.HospitalHelper;
 import com.perennial.doctorappointmentbooking.helper.PaymentHelper;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
-import com.perennial.doctorappointmentbooking.service.PatientService;
 import com.perennial.doctorappointmentbooking.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.List;
 
 @RestController
-@RequestMapping("payment")
+@RequestMapping("payments")
 public class PaymentController {
     @Autowired
     PaymentService paymentService;
-    @PostMapping("/upload-payment")
+
+    @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<ResponseMessage> uploadExcelFileOfPayment(@RequestParam("file") MultipartFile file)
-    {
+    public ResponseEntity<ResponseMessage> uploadExcelFileOfPayment(@RequestParam("file") MultipartFile file) {
         String message = "";
 
-        if (PaymentHelper.checkExcelFormatOfPayment(file))
-        {
+        if (PaymentHelper.checkExcelFormatOfPayment(file)) {
             try {
                 paymentService.save(file);
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
@@ -40,32 +36,25 @@ public class PaymentController {
     }
 
 
-
-    @PostMapping("/makepayment")
+    @PostMapping("/payments")
     @ResponseBody
-    public Payment addPayment(@RequestBody Payment payment)
-    {
+    public Payment addPayment(@RequestBody Payment payment) {
         return paymentService.addPayment(payment);
     }
 
 
-    @PutMapping("/update-payment")
-    public Payment updatePayment(Payment payment)
-    {
+    @PutMapping("/payments/update")
+    public Payment updatePayment(Payment payment) {
         return this.paymentService.updatePayment(payment);
     }
 
 
-
-    @DeleteMapping("/delete-payment")
-    public ResponseEntity<?> deletePayment(@PathVariable int payment_id)
-    {
+    @DeleteMapping("/payments/delete")
+    public ResponseEntity<?> deletePayment(@PathVariable int payment_id) {
         try {
             this.paymentService.deletePayment(payment_id);
             return ResponseEntity.ok().build();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

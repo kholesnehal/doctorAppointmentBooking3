@@ -1,8 +1,9 @@
 package com.perennial.doctorappointmentbooking.controller;
+
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.perennial.doctorappointmentbooking.entity.Patient;
 import com.perennial.doctorappointmentbooking.helper.HospitalHelper;
-import com.perennial.doctorappointmentbooking.repo.PatientRepo;
+import com.perennial.doctorappointmentbooking.repo.PatientRepository;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
 import com.perennial.doctorappointmentbooking.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +16,19 @@ import java.io.IOException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/patients")
 public class PatientController {
     @Autowired
     PatientService patientService;
     @Autowired
-    private PatientRepo patientRepo;
-    @PostMapping("/upload-patient")
+    private PatientRepository patientRepository;
+
+    @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<ResponseMessage> uploadExcelFileOfPatient(@RequestParam("file") MultipartFile file)
-    {
+    public ResponseEntity<ResponseMessage> uploadExcelFileOfPatient(@RequestParam("file") MultipartFile file) {
         String message = "";
 
-        if (HospitalHelper.checkExcelFormatOfHospital(file))
-        {
+        if (HospitalHelper.checkExcelFormatOfHospital(file)) {
             try {
                 patientService.save(file);
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
@@ -43,18 +43,16 @@ public class PatientController {
     }
 
 
-    @PostMapping("/add-patient")
+    @PostMapping("/patients")
     @ResponseBody
-    public Patient addPatient(@RequestBody Patient patient)
-    {
+    public Patient addPatient(@RequestBody Patient patient) {
         return patientService.addPatient(patient);
     }
 
 
-
-    @GetMapping("/byid")
-    public Optional<Patient> getPatientById(@RequestParam("patientId") long patientId) throws IOException, InvalidFormatException {
-        Optional<Patient> patient=patientRepo.findById(patientId);
+    @GetMapping("/{patientId}")
+    public Optional<Patient> getPatientById(@PathVariable("patientId") long patientId) throws IOException, InvalidFormatException {
+        Optional<Patient> patient = patientRepository.findById(patientId);
         return patient;
     }
 

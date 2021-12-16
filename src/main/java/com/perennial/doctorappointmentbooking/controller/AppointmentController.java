@@ -1,15 +1,15 @@
 package com.perennial.doctorappointmentbooking.controller;
+
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.perennial.doctorappointmentbooking.dto.Request;
 import com.perennial.doctorappointmentbooking.entity.Appointment;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
 import com.perennial.doctorappointmentbooking.entity.Patient;
 import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
-import com.perennial.doctorappointmentbooking.repo.AppointmentRepo;
-import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
-import com.perennial.doctorappointmentbooking.repo.PatientRepo;
+import com.perennial.doctorappointmentbooking.repo.AppointmentRepository;
+import com.perennial.doctorappointmentbooking.repo.DoctorRepository;
+import com.perennial.doctorappointmentbooking.repo.PatientRepository;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
-import com.perennial.doctorappointmentbooking.service.AppointmentInterface;
 import com.perennial.doctorappointmentbooking.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,29 +18,28 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/appointment")
+@RequestMapping("/appointments")
 public class AppointmentController {
     @Autowired
     AppointmentService appointmentService;
     @Autowired
-    DoctorRepo doctorRepo;
+    DoctorRepository doctorRepo;
     @Autowired
-    PatientRepo patientRepo;
+    PatientRepository patientRepository;
     @Autowired
-    private AppointmentRepo appointmentRepo;
+    private AppointmentRepository appointmentRepository;
 
-    @PostMapping("/upload-appointment")
+    @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<ResponseMessage> uploadExcelFile(@RequestParam("file") MultipartFile file)
-    {
+    public ResponseEntity<ResponseMessage> uploadExcelFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
-        if (AppointmentHelper.checkExcelFormatOfAppointment(file))
-        {
+        if (AppointmentHelper.checkExcelFormatOfAppointment(file)) {
             try {
                 appointmentService.save(file);
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
@@ -55,62 +54,69 @@ public class AppointmentController {
     }
 
 
-    @RequestMapping(path = "/add-doctor",method = RequestMethod.POST)
-    private Doctor placeDoctor(@RequestBody Request request)
-    {
+    @PostMapping("/appointments/doctors")
+    private Doctor placeDoctor(@RequestBody Request request) {
         return doctorRepo.save(request.getDoctor());
     }
-    @RequestMapping(path = "/add-patient",method = RequestMethod.POST)
-    private Patient placePatient(@RequestBody Request request)
-    {
-        return patientRepo.save(request.getPatient());
+
+
+    @PostMapping("/appointments/patients")
+    private Patient placePatient(@RequestBody Request request) {
+        return patientRepository.save(request.getPatient());
     }
-@RequestMapping(path="/add-appointment",method = RequestMethod.POST)
-private Appointment addAppointment(Appointment appointment )
-{
-    return appointmentService.addAppointment(appointment);
-}
-@GetMapping("/appointment-for-doctor")
-public List<Appointment> findAllAppointmentsForDoctor(@RequestParam long doctorId) {
-    return appointmentService.findAllAppointmentsforDoctor(doctorId);
 
-}
-@GetMapping("/appointment-for-patient")
-public List<Appointment>findAllAppointmentsForPatient(@RequestParam long patientId)
-{
-    return appointmentService.findAllAppointmentsforPatient(patientId);
-}
 
-@RequestMapping(path = "/{appointmentId}", method = RequestMethod.GET)
-public  Appointment getAppointmentById(@PathVariable Long appointmentId)
-{
-    return appointmentRepo.findByAppointmentId(appointmentId);
-}
+    @PostMapping("/appointments")
+    private Appointment addAppointment(Appointment appointment) {
+        return appointmentService.addAppointment(appointment);
+    }
 
-@PutMapping("/update/{appointmentId}")
- public Appointment updateAppointment(@RequestBody Appointment appointment)
-    {
+
+    @GetMapping("/doctors/{doctorId}/appointments")
+    public List<Appointment> findAllAppointmentsForDoctor(@PathVariable("doctorId") long doctorId) {
+        return appointmentService.findAllAppointmentsforDoctor(doctorId);
+
+    }
+
+
+    @GetMapping("/patients/{patientId}/appointments")
+    public List<Appointment> findAllAppointmentsForPatient(@PathVariable("patientId") long patientId) {
+        return appointmentService.findAllAppointmentsforPatient(patientId);
+    }
+
+
+    @PutMapping("/{appointmentId}")
+    public Appointment updateAppointment(@RequestBody Appointment appointment) {
         return appointmentService.updateAppointment(appointment);
     }
 
-@RequestMapping(path = "/{appointmentId}", method = RequestMethod.DELETE)
-void deleteAppointment(@PathVariable Long appointmentId) {
-    appointmentService.deleteAppointment(appointmentId);
-}
+
+    @RequestMapping(path = "/{appointmentId}", method = RequestMethod.DELETE)
+    void deleteAppointment(@PathVariable Long appointmentId) {
+        appointmentService.deleteAppointment(appointmentId);
+    }
+
 
     @RequestMapping(path = "/{appointmentId}", method = RequestMethod.PATCH)
     public Appointment updateStatus(@PathVariable Long appointmentId, @RequestBody Appointment appointment) {
         return appointmentService.updateStatus(appointmentId, appointment);
     }
 
-@GetMapping("/byid")
-public Optional<Appointment> getAppointmentById(@RequestParam("appointmentId") long appointmentId) throws IOException, InvalidFormatException {
-    Optional<Appointment> appointment=appointmentRepo.findById(appointmentId);
-    return appointment;
-}
+
+    @GetMapping("/{appointmentId}")
+    public Optional<Appointment> getAppointmentById(@PathVariable("appointmentId") long appointmentId) throws IOException, InvalidFormatException {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        return appointment;
+    }
+
+
+    @PostMapping( "/checkappointment")
+    private boolean isAppointmentAlreadyExist(@RequestBody Appointment appointment) {
+        if (appointmentService.isAppointmentAlreadyExist(appointment))
+            return true;
+        else
+            return false;
+    }
 
 }
-
-
-
 

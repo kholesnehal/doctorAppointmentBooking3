@@ -1,10 +1,8 @@
 package com.perennial.doctorappointmentbooking.service;
-import com.perennial.doctorappointmentbooking.entity.Doctor;
+
 import com.perennial.doctorappointmentbooking.entity.Hospital;
-import com.perennial.doctorappointmentbooking.helper.DoctorHelper;
 import com.perennial.doctorappointmentbooking.helper.HospitalHelper;
-import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
-import com.perennial.doctorappointmentbooking.repo.HospitalRepo;
+import com.perennial.doctorappointmentbooking.repo.HospitalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,17 +13,15 @@ import java.util.List;
 @Service
 public class HospitalService {
     @Autowired
-    HospitalRepo hospitalRepo;
+    HospitalRepository hospitalRepository;
 
     public void save(MultipartFile file) {
         try {
-            List<Hospital> hospitals= HospitalHelper.convertExcelToListOfHospital(file.getInputStream());
+            List<Hospital> hospitals = HospitalHelper.convertExcelToListOfHospital(file.getInputStream());
 
             try {
-               hospitals.forEach(l -> hospitalRepo.save(l));
-                }
-            catch (Exception e)
-            {
+                hospitals.forEach(l -> hospitalRepository.save(l));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } catch (IOException e) {
@@ -33,9 +29,8 @@ public class HospitalService {
         }
     }
 
-    public Hospital addhospital(Hospital hospital)
-    {
-        return hospitalRepo.save(hospital);
+    public Hospital addhospital(Hospital hospital) {
+        return hospitalRepository.save(hospital);
     }
 
 
