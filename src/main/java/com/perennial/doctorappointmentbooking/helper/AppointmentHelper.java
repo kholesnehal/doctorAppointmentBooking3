@@ -1,12 +1,10 @@
 package com.perennial.doctorappointmentbooking.helper;
-
 import com.perennial.doctorappointmentbooking.entity.Appointment;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -56,7 +54,7 @@ public class AppointmentHelper {
 
                             break;
                         case 1:
-                            appointment.setAppointmentDate(currentCell.getStringCellValue());
+                            appointment.setAppointmentDate(currentCell.getDateCellValue());
 
                             break;
                         case 2:

@@ -1,5 +1,4 @@
 package com.perennial.doctorappointmentbooking.service;
-
 import com.perennial.doctorappointmentbooking.entity.Appointment;
 import com.perennial.doctorappointmentbooking.entity.Patient;
 import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -112,7 +110,7 @@ public class AppointmentService {
         return findByPatientId(patientId);
 
     }
-    public boolean isAppointmentAlreadyExist(Appointment appointment) {
+    public boolean isAppointmentBooked(Appointment appointment) {
         List<Appointment> appointmentList = appointmentRepository.findAll();
         for (Appointment d : appointmentList) {
             if (d.getAppointmentDate().equals(appointment.getAppointmentDate())
@@ -124,6 +122,17 @@ public class AppointmentService {
 
         return false;
         }
+
+//    public  List<Appointment> findAllAppointmentOfTheDay(Date appointmentDate, Appointment appointment) {
+//        List<Appointment> appointmentList = appointmentRepository.findAll();
+//        for(Appointment a:appointmentList)
+//        {
+//            a.getAppointmentDate()
+//        }
+//
+//    }
+
+
         }
 
 

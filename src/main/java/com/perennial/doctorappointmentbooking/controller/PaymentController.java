@@ -1,5 +1,4 @@
 package com.perennial.doctorappointmentbooking.controller;
-
 import com.perennial.doctorappointmentbooking.entity.Payment;
 import com.perennial.doctorappointmentbooking.helper.PaymentHelper;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("payments")
+@RequestMapping("/payments")
 public class PaymentController {
     @Autowired
     PaymentService paymentService;
@@ -54,7 +53,8 @@ public class PaymentController {
         try {
             this.paymentService.deletePayment(payment_id);
             return ResponseEntity.ok().build();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
