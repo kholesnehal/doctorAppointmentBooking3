@@ -38,7 +38,7 @@ public class DoctorService {
         return doctorRepository.save(doctor);
     }
 
-    public List<Doctor> getAllDoctors(String status) {
+    public List<Doctor> getAllDoctorsByStatus(String status) {
         List<Doctor> d = doctorRepository.findAll().stream()
                 .filter(doctor -> doctor.getStatus().equals(status))
                 .collect(Collectors.toList());
@@ -49,6 +49,9 @@ public class DoctorService {
     public void deleteDoctorById(Long doctorId) {
         doctorRepository.deleteById(doctorId);
 
+    }
+    public List<Doctor> getAllDoctor() {
+        return doctorRepository.findAll();
     }
 
     public boolean isDoctorAlreadyExist(Doctor doctor) {

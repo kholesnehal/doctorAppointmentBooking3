@@ -10,6 +10,8 @@ import com.perennial.doctorappointmentbooking.repo.DoctorRepository;
 import com.perennial.doctorappointmentbooking.repo.PatientRepository;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
 import com.perennial.doctorappointmentbooking.service.AppointmentService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentController {
+    private static final Logger logger = LogManager.getLogger(Appointment.class);
     @Autowired
     AppointmentService appointmentService;
     @Autowired
@@ -65,7 +68,9 @@ public class AppointmentController {
 
     @PostMapping("/appointments")
     private Appointment addAppointment(Appointment appointment) {
+        logger.info("Appointment done successfully");
         return appointmentService.addAppointment(appointment);
+
     }
 
 

@@ -25,4 +25,14 @@ public class Hospital {
     private long phone;
 
 
+    public Hospital(long hospitalId, String hospitalName, String hospitalAddress, long phone) {
+        this.hospitalId = hospitalId;
+        this.hospitalName = hospitalName;
+        this.hospitalAddress = hospitalAddress;
+        this.phone = phone;
+    }
+
+    public Hospital() {
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.perennial.doctorappointmentbooking.entity;
 import com.sun.istack.NotNull;
+import lombok.Builder;
 import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -28,4 +29,7 @@ public class Appointment {
     private Payment payment;
 
 
+    public Appointment() {
+
+    }
 }

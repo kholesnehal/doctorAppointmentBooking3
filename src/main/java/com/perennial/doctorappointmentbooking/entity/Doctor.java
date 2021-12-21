@@ -1,9 +1,6 @@
 package com.perennial.doctorappointmentbooking.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -14,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class Doctor {
     @OneToMany(targetEntity = Appointment.class, cascade = CascadeType.ALL)
     List<Appointment> appointmentList;
@@ -44,6 +42,24 @@ public class Doctor {
     @NotBlank
     private String education;
     private String status;
+
+
+//    public Doctor(List<Appointment> appointmentList, List<Patient> patients, List<Hospital> hospitals, long doctorId, String licenceNumber, String firstName, String lastName, String email, String address, long phone, String speciality, Integer experience, String education, String status) {
+//        this.appointmentList = appointmentList;
+//        this.patients = patients;
+//        this.hospitals = hospitals;
+//        this.doctorId = doctorId;
+//        this.licenceNumber = licenceNumber;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.address = address;
+//        this.phone = phone;
+//        this.speciality = speciality;
+//        this.experience = experience;
+//        this.education = education;
+//        this.status = status;
+//    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.perennial.doctorappointmentbooking.service;
 
+import com.perennial.doctorappointmentbooking.entity.Doctor;
 import com.perennial.doctorappointmentbooking.entity.Hospital;
 import com.perennial.doctorappointmentbooking.helper.HospitalHelper;
 import com.perennial.doctorappointmentbooking.repo.HospitalRepository;
@@ -31,6 +32,10 @@ public class HospitalService {
 
     public Hospital addhospital(Hospital hospital) {
         return hospitalRepository.save(hospital);
+    }
+
+    public List<Hospital> getAllHospital() {
+        return hospitalRepository.findAll();
     }
 
 
