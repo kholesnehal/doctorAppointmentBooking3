@@ -1,11 +1,8 @@
 package com.perennial.doctorappointmentbooking.service;
 
-import com.perennial.doctorappointmentbooking.entity.Patient;
 import com.perennial.doctorappointmentbooking.entity.Payment;
-import com.perennial.doctorappointmentbooking.helper.PatientHelper;
 import com.perennial.doctorappointmentbooking.helper.PaymentHelper;
-import com.perennial.doctorappointmentbooking.repo.PatientRepo;
-import com.perennial.doctorappointmentbooking.repo.PaymentRepo;
+import com.perennial.doctorappointmentbooking.repo.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -17,45 +14,43 @@ import java.util.List;
 @Service
 public class PaymentService {
     @Autowired
-    PaymentRepo paymentRepo;
+    PaymentRepository paymentRepository;
 
     public void save(MultipartFile file) {
         try {
-            List<Payment> payments= PaymentHelper.convertExcelToListOfPPayment(file.getInputStream());
+            List<Payment> payments = PaymentHelper.convertExcelToListOfPPayment(file.getInputStream());
             try {
-               payments.forEach(l -> paymentRepo.save(l));
-            }
-            catch (Exception e)
-            {
+                payments.forEach(l -> paymentRepository.save(l));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } catch ( IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("fail to store excel data: " + e.getMessage());
         }
     }
-    public List<Payment> getAllPayment()
-    {
-        return paymentRepo.findAll();
+
+    public List<Payment> getAllPayment() {
+        return paymentRepository.findAll();
     }
-    public Payment addPayment(Payment payment)
-    {
-        return paymentRepo.save(payment);
+
+    public Payment addPayment(Payment payment) {
+        return paymentRepository.save(payment);
     }
 
     public Payment updatePayment(Payment payment) {
-         Payment update = paymentRepo.findByPaymentId(payment.getPaymentId());
+        Payment update = paymentRepository.findByPaymentId((int) payment.getPaymentId());
         update.setPaymentDate(payment.getPaymentDate());
         update.setPaymentTime(payment.getPaymentTime());
         update.setPaymentMode(payment.getPaymentMode());
         update.setAmmount(payment.getAmmount());
-        return paymentRepo.save(update);
+        return paymentRepository.save(update);
     }
 
 
     public String deletePayment(int payment_id) {
-        Payment payment = paymentRepo.findByPaymentId(payment_id);
+        Payment payment = paymentRepository.findByPaymentId(payment_id);
         if (!ObjectUtils.isEmpty(payment)) {
-            paymentRepo.delete(payment);
+            paymentRepository.delete(payment);
             return " Record deleted = " + payment;
         } else
             return "Record is not available and not deleted";

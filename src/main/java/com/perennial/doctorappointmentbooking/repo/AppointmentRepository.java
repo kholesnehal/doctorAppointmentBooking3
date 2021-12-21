@@ -1,12 +1,11 @@
 package com.perennial.doctorappointmentbooking.repo;
+
 import com.perennial.doctorappointmentbooking.entity.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-
 @Repository
-public interface AppointmentRepo extends JpaRepository<Appointment,Integer> {
+public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    Appointment findByAppointmentId(int appointment_id);
-
+    Appointment findByAppointmentId(long appointmentId);
+//    List<Appointment> findByMonthAndDay(Integer month, Integer day);
 }

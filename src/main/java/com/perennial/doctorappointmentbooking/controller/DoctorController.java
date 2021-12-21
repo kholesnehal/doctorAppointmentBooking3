@@ -1,39 +1,36 @@
 package com.perennial.doctorappointmentbooking.controller;
 import com.perennial.doctorappointmentbooking.dto.Request;
-import com.perennial.doctorappointmentbooking.entity.Appointment;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
-import com.perennial.doctorappointmentbooking.entity.Hospital;
-import com.perennial.doctorappointmentbooking.entity.Patient;
-import com.perennial.doctorappointmentbooking.helper.AppointmentHelper;
 import com.perennial.doctorappointmentbooking.helper.DoctorHelper;
-import com.perennial.doctorappointmentbooking.repo.DoctorRepo;
-import com.perennial.doctorappointmentbooking.repo.PatientRepo;
+import com.perennial.doctorappointmentbooking.repo.DoctorRepository;
+import com.perennial.doctorappointmentbooking.repo.PatientRepository;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
-import com.perennial.doctorappointmentbooking.service.AppointmentService;
 import com.perennial.doctorappointmentbooking.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/doctors")
 public class DoctorController {
     @Autowired
     DoctorService doctorService;
     @Autowired
-    DoctorRepo doctorRepo;
+    DoctorRepository doctorRepo;
     @Autowired
-    PatientRepo patientRepo;
-    @PostMapping("/uploaddoctor")
+    PatientRepository patientRepository;
+
+    @PostMapping("/upload")
     @ResponseBody
-    public ResponseEntity<ResponseMessage> uploadExcelFile(@RequestParam("file") MultipartFile file)
-    {
+    public ResponseEntity<ResponseMessage> uploadExcelFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
-        if (DoctorHelper.checkExcelFormatOfDoctor(file))
-        {
+        if (DoctorHelper.checkExcelFormatOfDoctor(file)) {
             try {
                 doctorService.save(file);
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
@@ -47,16 +44,44 @@ public class DoctorController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
 
-    @PostMapping("/adddoctor")
-    private Doctor placeDoctor(@RequestBody Request request)
-    {
+    @PostMapping("/doctors")
+    private Doctor addDoctor(@RequestBody Request request) {
         return doctorRepo.save(request.getDoctor());
     }
 
 
-    @GetMapping("/allDoctor")
+    @GetMapping("/getdoctors")
     public List<Doctor> getAllDoctor() {
         return doctorRepo.findAll();
+    }
+
+
+    @GetMapping("/{id}")
+    public Optional<Doctor> getDoctorById(@PathVariable("doctorId") long doctorId) {
+        Optional<Doctor> doctor = doctorRepo.findById(doctorId);
+        return doctor;
+    }
+
+
+    @GetMapping("/doctors/available")
+    public List<Doctor> getAvailableDoctors(@RequestParam String status) {
+        List<Doctor> availableDoctors = doctorService.getAllDoctors(status);
+        return availableDoctors;
+    }
+
+
+    @DeleteMapping("/{id}")
+    public void deleteDoctorById(@RequestParam long doctorId) {
+        doctorService.deleteDoctorById(doctorId);
+    }
+
+
+    @PostMapping("/isdoctorexist")
+    private boolean isDoctorAlreadyExist(@RequestBody Doctor doctor) {
+        if (doctorService.isDoctorAlreadyExist(doctor))
+            return true;
+        else
+            return false;
     }
 
 }

@@ -1,22 +1,31 @@
 package com.perennial.doctorappointmentbooking.entity;
-import lombok.AllArgsConstructor;
+import com.sun.istack.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
+import java.util.Date;
 @Data
 @Entity
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer appointmentId;
-    private String appointmentDate;
-    private String appointmentTime;
+    @NotNull
+    private long appointmentId;
+    @Temporal(TemporalType.DATE)
+    @Pattern(regexp = "yyyy-MM-dd")
+    private Date appointmentDate;
+    private LocalDateTime appointmentStartTime;
+    private LocalDateTime appointmentEndTime;
+    @NotBlank
     private String appointmentStatus;
-
+    @NotNull
+    private long doctorId;
+    @NotNull
+    private long patientId;
     @OneToOne
     private Payment payment;
-
-
 
 
 }
