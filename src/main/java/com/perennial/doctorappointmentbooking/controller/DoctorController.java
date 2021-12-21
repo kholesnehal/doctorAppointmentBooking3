@@ -6,22 +6,24 @@ import com.perennial.doctorappointmentbooking.repo.DoctorRepository;
 import com.perennial.doctorappointmentbooking.repo.PatientRepository;
 import com.perennial.doctorappointmentbooking.responsemessage.ResponseMessage;
 import com.perennial.doctorappointmentbooking.service.DoctorService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/doctors")
 public class DoctorController {
+    private static final Logger logger = LogManager.getLogger(DoctorController.class);
     @Autowired
     DoctorService doctorService;
     @Autowired
-    DoctorRepository doctorRepo;
+    DoctorRepository doctorRepository;
     @Autowired
     PatientRepository patientRepository;
 
@@ -46,26 +48,28 @@ public class DoctorController {
 
     @PostMapping("/doctors")
     private Doctor addDoctor(@RequestBody Request request) {
-        return doctorRepo.save(request.getDoctor());
+        return doctorRepository.save(request.getDoctor());
     }
 
 
     @GetMapping("/getdoctors")
     public List<Doctor> getAllDoctor() {
-        return doctorRepo.findAll();
+        logger.info("Doctor list:");
+        return doctorService.getAllDoctor();
     }
 
 
     @GetMapping("/{id}")
     public Optional<Doctor> getDoctorById(@PathVariable("doctorId") long doctorId) {
-        Optional<Doctor> doctor = doctorRepo.findById(doctorId);
+        logger.info("hi");
+        Optional<Doctor> doctor = doctorRepository.findById(doctorId);
         return doctor;
     }
 
 
     @GetMapping("/doctors/available")
     public List<Doctor> getAvailableDoctors(@RequestParam String status) {
-        List<Doctor> availableDoctors = doctorService.getAllDoctors(status);
+        List<Doctor> availableDoctors = doctorService.getAllDoctorsByStatus(status);
         return availableDoctors;
     }
 

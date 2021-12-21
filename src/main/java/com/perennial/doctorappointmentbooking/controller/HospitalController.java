@@ -51,7 +51,8 @@ public class HospitalController {
 
 
     @GetMapping("/hospitals")
-    public List<Hospital> findAllHospitals() {
-        return hospitalRepository.findAll();
+    public List<Hospital> getAllHospitals() {
+
+        return hospitalService.getAllHospital();
     }
 }
