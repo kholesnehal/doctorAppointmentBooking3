@@ -18,7 +18,7 @@ public class Doctor {
     List<Hospital> hospitals;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+
     private long doctorId;
     @NotEmpty
     private String licenceNumber;

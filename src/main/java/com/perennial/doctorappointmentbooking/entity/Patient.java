@@ -9,17 +9,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.util.List;
-@Entity(name = "patient")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class Patient {
-    @OneToMany(cascade = CascadeType.ALL)
-    List<Appointment> appointmentList;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @NotNull
     private long patientId;
     @NotEmpty
     private String firstName;
@@ -34,6 +31,7 @@ public class Patient {
     @NotNull
     private int age;
     private String reason;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Appointment> appointmentList;
 
 }

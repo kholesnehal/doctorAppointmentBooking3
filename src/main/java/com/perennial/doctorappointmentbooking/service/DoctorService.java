@@ -1,5 +1,6 @@
 package com.perennial.doctorappointmentbooking.service;
 
+import com.perennial.doctorappointmentbooking.dto.Response;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
 import com.perennial.doctorappointmentbooking.helper.DoctorHelper;
 import com.perennial.doctorappointmentbooking.repo.DoctorRepository;
@@ -34,8 +35,10 @@ public class DoctorService {
         }
     }
 
-    public Doctor adddoctor(Doctor doctor) {
-        return doctorRepository.save(doctor);
+    public Response adddoctor(Doctor doctor) {
+         doctorRepository.save(doctor);
+        return new Response(doctor.getDoctorId()+"inserted",Boolean.TRUE);
+
     }
 
     public List<Doctor> getAllDoctorsByStatus(String status) {

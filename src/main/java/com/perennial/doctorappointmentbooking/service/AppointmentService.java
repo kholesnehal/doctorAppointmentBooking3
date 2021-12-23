@@ -26,7 +26,7 @@ public class AppointmentService {
             try {
                 appointments.forEach(l -> appointmentRepository.save(l));
 
-            } catch (Exception e) {
+            } catch (Exception e){
                 e.printStackTrace();
             }
         } catch (IOException e) {
@@ -80,8 +80,6 @@ public class AppointmentService {
 
         Appointment update = appointmentRepository.findByAppointmentId((int) appointment.getAppointmentId());
         update.setAppointmentDate(appointment.getAppointmentDate());
-        update.setAppointmentStartTime(appointment.getAppointmentStartTime());
-        update.setAppointmentEndTime(appointment.getAppointmentEndTime());
         update.setAppointmentStatus(appointment.getAppointmentStatus());
         update.setDoctorId(appointment.getDoctorId());
         update.setPatientId(appointment.getPatientId());
@@ -114,23 +112,12 @@ public class AppointmentService {
         List<Appointment> appointmentList = appointmentRepository.findAll();
         for (Appointment d : appointmentList) {
             if (d.getAppointmentDate().equals(appointment.getAppointmentDate())
-                    && d.getAppointmentStatus().equals(appointment.getAppointmentStatus())
-                    && d.getAppointmentStartTime().equals(appointment.getAppointmentStartTime())&& d.getAppointmentEndTime().equals(appointment.getAppointmentEndTime()));
+                    && d.getAppointmentStatus().equals(appointment.getAppointmentStatus()));
                      return true;
             }
 
-
         return false;
         }
-
-//    public  List<Appointment> findAllAppointmentOfTheDay(Date appointmentDate, Appointment appointment) {
-//        List<Appointment> appointmentList = appointmentRepository.findAll();
-//        for(Appointment a:appointmentList)
-//        {
-//            a.getAppointmentDate()
-//        }
-//
-//    }
 
 
         }

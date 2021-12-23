@@ -23,8 +23,10 @@ public class Slot {
 
     @NotNull
     private long doctorId;
+    @NotNull
+    private long appointmentId;
 
-    private boolean isBooked;
-
-    private boolean isBookedBySameUser;
+//    private boolean isBooked;
+//
+//    private boolean isBookedBySameUser;
 }

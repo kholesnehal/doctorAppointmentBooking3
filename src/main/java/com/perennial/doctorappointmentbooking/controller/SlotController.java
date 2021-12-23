@@ -5,7 +5,6 @@ import com.perennial.doctorappointmentbooking.service.SlotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 @RestController
 @RequestMapping("/slots")
@@ -13,7 +12,7 @@ public class SlotController {
     @Autowired
     private SlotService slotService;
     @GetMapping("/{doctorId}")
-    public Slot getAllSlotByDoctorId(@Valid @RequestParam Long doctorId) {
+    public Slot getAllSlotByDoctorId(@PathVariable Long doctorId) {
         return (Slot) slotService.getAllByDoctorId(doctorId);
     }
 
