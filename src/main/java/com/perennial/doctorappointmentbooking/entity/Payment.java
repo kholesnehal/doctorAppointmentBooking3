@@ -1,6 +1,8 @@
 package com.perennial.doctorappointmentbooking.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import java.util.Date;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,8 +28,6 @@ public class Payment {
     @JoinColumn(name = "appointment_id")
     private Appointment appointment;
 
-    public Payment() {
-    }
 
 
 }

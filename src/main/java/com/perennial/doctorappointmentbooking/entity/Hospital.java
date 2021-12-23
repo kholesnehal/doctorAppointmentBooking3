@@ -1,7 +1,9 @@
 package com.perennial.doctorappointmentbooking.entity;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,8 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Hospital {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,14 +29,6 @@ public class Hospital {
     private long phone;
 
 
-    public Hospital(long hospitalId, String hospitalName, String hospitalAddress, long phone) {
-        this.hospitalId = hospitalId;
-        this.hospitalName = hospitalName;
-        this.hospitalAddress = hospitalAddress;
-        this.phone = phone;
-    }
 
-    public Hospital() {
 
-    }
 }

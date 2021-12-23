@@ -16,6 +16,9 @@ public class HospitalService {
     @Autowired
     HospitalRepository hospitalRepository;
 
+    public HospitalService(HospitalRepository hospitalRepository) {
+    }
+
     public void save(MultipartFile file) {
         try {
             List<Hospital> hospitals = HospitalHelper.convertExcelToListOfHospital(file.getInputStream());

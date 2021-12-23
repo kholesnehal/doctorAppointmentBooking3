@@ -1,7 +1,10 @@
 package com.perennial.doctorappointmentbooking.entity;
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -9,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +34,5 @@ public class Appointment {
     private Payment payment;
 
 
-    public Appointment() {
 
-    }
 }

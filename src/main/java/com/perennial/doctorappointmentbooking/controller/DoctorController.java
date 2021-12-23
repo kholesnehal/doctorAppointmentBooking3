@@ -61,7 +61,6 @@ public class DoctorController {
 
     @GetMapping("/{id}")
     public Optional<Doctor> getDoctorById(@PathVariable("doctorId") long doctorId) {
-        logger.info("hi");
         Optional<Doctor> doctor = doctorRepository.findById(doctorId);
         return doctor;
     }
