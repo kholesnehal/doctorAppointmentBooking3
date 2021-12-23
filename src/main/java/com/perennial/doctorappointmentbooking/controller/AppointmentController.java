@@ -67,7 +67,7 @@ public class AppointmentController {
 
 
     @PostMapping("/appointments")
-    private Appointment addAppointment(Appointment appointment) {
+    private Appointment addAppointment(@RequestBody Appointment appointment) {
         logger.info("Appointment done successfully");
         return appointmentService.addAppointment(appointment);
 

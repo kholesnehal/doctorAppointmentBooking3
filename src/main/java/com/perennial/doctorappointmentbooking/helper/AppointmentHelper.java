@@ -55,18 +55,10 @@ public class AppointmentHelper {
                             break;
                         case 1:
                             appointment.setAppointmentDate(currentCell.getDateCellValue());
-
                             break;
+
                         case 2:
-                            appointment.setAppointmentStartTime(currentCell.getLocalDateTimeCellValue());
-
-                            break;
-                        case 3:
-                            appointment.setAppointmentEndTime(currentCell.getLocalDateTimeCellValue());
-                            break;
-                        case 4:
                             appointment.setAppointmentStatus(currentCell.getStringCellValue());
-
                             break;
 
                         default:

@@ -1,5 +1,5 @@
 package com.perennial.doctorappointmentbooking.controller;
-import com.perennial.doctorappointmentbooking.dto.Request;
+import com.perennial.doctorappointmentbooking.dto.Response;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
 import com.perennial.doctorappointmentbooking.helper.DoctorHelper;
 import com.perennial.doctorappointmentbooking.repo.DoctorRepository;
@@ -46,9 +46,10 @@ public class DoctorController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
 
-    @PostMapping("/doctors")
-    private Doctor addDoctor(@RequestBody Request request) {
-        return doctorRepository.save(request.getDoctor());
+    @PostMapping("/adddoctor")
+    private Response adddoctor(@RequestBody Doctor doctor) {
+        doctorService.adddoctor(doctor);
+        return new Response(doctor.getDoctorId()+"inserted",Boolean.TRUE);
     }
 
 

@@ -22,8 +22,6 @@ public class Appointment {
     @Temporal(TemporalType.DATE)
     @Pattern(regexp = "yyyy-MM-dd")
     private Date appointmentDate;
-    private LocalDateTime appointmentStartTime;
-    private LocalDateTime appointmentEndTime;
     @NotBlank
     private String appointmentStatus;
     @NotNull

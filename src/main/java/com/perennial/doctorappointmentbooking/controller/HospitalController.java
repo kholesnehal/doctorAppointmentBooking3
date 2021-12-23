@@ -1,5 +1,6 @@
 package com.perennial.doctorappointmentbooking.controller;
 import com.perennial.doctorappointmentbooking.dto.Request;
+import com.perennial.doctorappointmentbooking.dto.Response;
 import com.perennial.doctorappointmentbooking.entity.Doctor;
 import com.perennial.doctorappointmentbooking.entity.Hospital;
 import com.perennial.doctorappointmentbooking.helper.HospitalHelper;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.List;
 
 @RestController
 @RequestMapping("/hospitals")
@@ -51,8 +51,15 @@ public class HospitalController {
 
 
     @GetMapping("/hospitals")
-    public List<Hospital> getAllHospitals() {
+    public Response<Hospital> getAllHospitals() {
 
-        return hospitalService.getAllHospital();
+         hospitalService.getAllHospital();
+        return new Response("inserted",Boolean.TRUE);
+
+    }
+    @PostMapping("/addhospitals")
+    private Response addhospital(@RequestBody Hospital hospital) {
+      hospitalService.addhospital(hospital);
+return new Response(hospital.getHospitalId()+"inserted",Boolean.TRUE);
     }
 }
